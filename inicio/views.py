@@ -59,7 +59,17 @@ def registro(request):
 			c = db.cursor()
 			print("connected to db server")
 			consulta = "INSERT INTO Empleado VALUES("+str(CUI)+",'"+nombre+"','"+apellido+"','"+puesto+"','"+username+"','"+contra+"');"
-			print(consulta)
+			consulta2 = "SELECT CUI, usuario from Empleado WHERE CUI = "+str(CUI)+" OR usuario = '"+username+"';"
+			print(consulta2)
+			c.execute(consulta2)
+			a = c.rowcount
+			if a > 0:
+				mensaje = "CUI o usuario ya registrado, por favor ingrese datos nuevos"
+				variables={
+					"form":form,
+					"mensaje":mensaje,
+				}
+				return render(request, "inicio/registro.html", variables)
 			user = form.save()
 			if user is not None:
 				c.execute(consulta)
