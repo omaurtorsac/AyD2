@@ -90,7 +90,11 @@ def registro(request):
 				}
 				return render(request, "inicio/registro.html", variables)
 		else:
-			print("llego aquí")
+			mensaje = "Usuario ya existente (ingrese otro username)"
+			variables={
+				"form":form,
+				"mensaje":mensaje,
+			}
             # Creamos la nueva cuenta de usuario
             #user = form.save()
 
