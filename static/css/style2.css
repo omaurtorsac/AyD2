@@ -373,9 +373,9 @@
 /* Tables */
 
 	table {
-    font-family: arial, sans-serif;
+    font-family: consolas;
     border-collapse: collapse;
-    width: 60%;
+    width: 80%;
 	}
 
 	td, th {
@@ -389,7 +389,7 @@
 	}
 
 	table#t01 {
-    font-family: arial, sans-serif;
+    font-family: consolas, sans-serif;
     border-collapse: collapse;
     width: 100%;
 	}

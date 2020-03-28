@@ -11,8 +11,8 @@ urlpatterns = [
     path('registro/',views.registro),
     path('producto/',views.producto),
     path('cliente/',views.cliente),
-    path('proveedor/',views.proveedor)
-    #path(r'^reporte1/$','inicio.views.reporte1'),
+    path('proveedor/',views.proveedor),
+    path('reporte1/',views.reporte1),
     #path(r'^reporte2/$','inicio.views.reporte2'),
     #path(r'^reporte3/$','inicio.views.reporte3'),
     #path(r'^reporte4/$','inicio.views.reporte4'),

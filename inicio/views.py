@@ -72,6 +72,19 @@ def proveedor(request):
 	return render(request, "inicio/proveedores.html", variables)
 
 @login_required
+def reporte1(request):
+	mensaje1 = "Reporte de Productos"
+	camp = ['Nombre del producto','Marca','Cantidad en bodega']
+	r1 = reporteno1()
+	variables = {
+		"mensaje1":mensaje1,
+		"campos":camp,
+		"r1":r1,
+	}
+	print(r1)
+	return render(request, "inicio/reporte1.html",variables)
+
+@login_required
 def cliente(request):
 	#form = login2(request.POST)
 	form = clientes()

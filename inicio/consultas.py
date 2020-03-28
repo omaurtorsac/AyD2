@@ -20,3 +20,7 @@ def nitexiste(nit):
 def nitexiste2(nit):
 	n = Proveedor.objects.filter(nit = nit)
 	return n
+
+def reporteno1():
+	r1 = Producto.objects.values_list('nombre','marca','cantidad')
+	return r1
