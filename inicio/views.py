@@ -30,7 +30,46 @@ def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('../');
 
-
+@login_required
+def proveedor(request):
+	#form = login2(request.POST)
+	form = proveedores()
+	mensaje = "Registre nuevo proveedor"
+	variables={
+		"form":form,
+		"mensaje":mensaje,
+	}
+	if request.method == "POST":
+		form = proveedores(data=request.POST)
+		if form.is_valid():
+			datos = form.cleaned_data
+			nombre = datos.get('nombre')
+			nit = datos.get('nit')
+			apellido = datos.get('apellido')
+			n = nitexiste(nit)
+			if not n:
+				form.save()
+				form = proveedores()
+				mensaje = "Proveedor registrado"
+				variables={
+					"form":form,
+					"mensaje":mensaje,
+				}
+			else:
+				mensaje = "Nit ya existente en la base de datos"
+				variables = {
+					"form":form,
+					"mensaje":mensaje,
+				}
+		else:
+			mensaje = "Error al grabar"
+			variables = {
+				"form": form,
+				"mensaje":mensaje,
+			}
+	else:
+		mensaje="Error en datos ingresados"
+	return render(request, "inicio/proveedores.html", variables)
 
 @login_required
 def cliente(request):

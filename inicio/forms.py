@@ -16,6 +16,12 @@ class clientes(forms.ModelForm):
 		model = Cliente
 		fields = ("nit", "nombre","apellido")
 
+class proveedores(forms.ModelForm):
+	nit = forms.IntegerField(required = True, help_text='Ingrese solo digitos')
+	class Meta:
+		model = Proveedor
+		fields = ("nit", "nombre","apellido")
+
 class login2(AuthenticationForm):
 	#usuario = forms.CharField(widget=forms.TextInput,required=True)
     #password = forms.CharField(widget=forms.PasswordInput(),required=True)

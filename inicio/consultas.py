@@ -16,3 +16,7 @@ def productoexiste(nombre, marca):
 def nitexiste(nit):
 	n = Cliente.objects.filter(nit = nit)
 	return n
+
+def nitexiste2(nit):
+	n = Proveedor.objects.filter(nit = nit)
+	return n
