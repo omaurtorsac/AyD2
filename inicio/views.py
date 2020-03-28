@@ -35,23 +35,29 @@ def logout(request):
 def producto(request):
 	#form = login2(request.POST)
 	form = productos()
+	mensaje = "Registre nuevo producto"
 	variables={
 		"form":form,
+		"mensaje":mensaje,
 	}
 	if request.method == "POST":
 		form = productos(data=request.POST)
-		variables={
-			"form":form,
-		}
-		form = productos(data=request.POST)
 		if form.is_valid():
+			form.save()
+			form = productos()
+			mensaje = "Producto grabado"
 			variables={
 				"form":form,
+				"mensaje":mensaje,
 			}
 		else:
+			mensaje = "Error al grabara"
 			variables = {
 				"form": form,
+				"mensaje":mensaje,
 			}
+	else:
+		mensaje="Error en datos ingresados"
 	return render(request, "inicio/productos.html", variables)
 
 
