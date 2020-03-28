@@ -2,6 +2,7 @@ from django.shortcuts import render, render_to_response
 from .forms import login2
 from .forms import UserCreateForm
 from .forms import productos
+from .consultas import *
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth import login as do_login
@@ -43,13 +44,25 @@ def producto(request):
 	if request.method == "POST":
 		form = productos(data=request.POST)
 		if form.is_valid():
-			form.save()
-			form = productos()
-			mensaje = "Producto grabado"
-			variables={
-				"form":form,
-				"mensaje":mensaje,
-			}
+			datos = form.cleaned_data
+			nombre = datos.get('nombre')
+			marca = datos.get('marca')
+			p = productoexiste(nombre,marca)
+			if  not p:
+				form.save()
+				form = productos()
+				mensaje = "Producto grabado"
+				variables={
+					"form":form,
+					"mensaje":mensaje,
+				}
+			else:
+				form = productos()
+				mensaje = "Producto con ese tipo de marca ya existente"
+				variables = {
+					"form":form,
+					"mensaje":mensaje,
+				}
 		else:
 			mensaje = "Error al grabara"
 			variables = {
