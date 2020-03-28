@@ -71,7 +71,7 @@ def cliente(request):
 			}
 	else:
 		mensaje="Error en datos ingresados"
-	return render(request, "inicio/productos.html", variables)
+	return render(request, "inicio/clientes.html", variables)
 
 @login_required
 def producto(request):
