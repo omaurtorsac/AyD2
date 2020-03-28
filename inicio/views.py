@@ -1,7 +1,5 @@
 from django.shortcuts import render, render_to_response
-from .forms import login2
-from .forms import UserCreateForm
-from .forms import productos
+from .forms import *
 from .consultas import *
 from django.http import HttpResponseRedirect
 from django.contrib import auth
@@ -31,6 +29,49 @@ def adminp(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('../');
+
+
+
+@login_required
+def cliente(request):
+	#form = login2(request.POST)
+	form = clientes()
+	mensaje = "Registre nuevo cliente"
+	variables={
+		"form":form,
+		"mensaje":mensaje,
+	}
+	if request.method == "POST":
+		form = clientes(data=request.POST)
+		if form.is_valid():
+			datos = form.cleaned_data
+			nombre = datos.get('nombre')
+			nit = datos.get('nit')
+			apellido = datos.get('apellido')
+			n = nitexiste(nit)
+			if not n:
+				form.save()
+				form = clientes()
+				mensaje = "Cliente registrado"
+				variables={
+					"form":form,
+					"mensaje":mensaje,
+				}
+			else:
+				mensaje = "Nit ya existente en la base de datos"
+				variables = {
+					"form":form,
+					"mensaje":mensaje,
+				}
+		else:
+			mensaje = "Error al grabar"
+			variables = {
+				"form": form,
+				"mensaje":mensaje,
+			}
+	else:
+		mensaje="Error en datos ingresados"
+	return render(request, "inicio/productos.html", variables)
 
 @login_required
 def producto(request):

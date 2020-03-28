@@ -6,7 +6,13 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from .models import *
+from django.db.models import Q
 
 def productoexiste(nombre, marca):
 	p = Producto.objects.filter(nombre = nombre).filter(marca = marca)
 	return p
+
+
+def nitexiste(nit):
+	n = Cliente.objects.filter(nit = nit)
+	return n
