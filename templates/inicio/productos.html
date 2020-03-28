@@ -1,0 +1,82 @@
+{% extends 'inicio/base2.html' %}
+{% block content %}
+
+		<!-- Header -->
+			<div id="header">
+				<div class="container">
+						
+					<!-- Logo -->
+						<h1><a href="#" id="logo">Registro de Productos</a></h1>
+					
+					<nav id="nav">
+							<ul>
+								<li><a href="../adminp">Principal</a></li>
+								<li><a href="">Registrar</a>
+									<ul>
+										<li><a href="../registro">Cliente</a></li>
+										<li><a href="../registro">Usuario</a></li>
+										<li><a href="../registro">Proveedor</a></li>
+									</ul>
+								</li>
+								<li>
+									<a href="">Sesión</a>
+									<ul>
+										<li><a href="../logout">Logout</a></li>
+									</ul>
+								</li>
+								<li>
+                                    <a href="">Reportes</a>
+                                    <ul>
+										<li><a href="../reporte1">Reporte 1</a></li>
+                                        <li><a href="../reporte2">Reporte 2</a></li>
+                                        <li><a href="../reporte3">Reporte 3</a></li>
+                                        <li><a href="../reporte4">Reporte 4</a></li>
+                                        <li><a href="../reporte5">Reporte 5</a></li>
+                                        <li><a href="../reporte6">Reporte 6</a></li>
+									</ul>
+                                </li>
+								<li><a href="../cargar">Cargar</a></li>
+							</ul>
+						</nav>
+
+				</div>
+			</div>
+
+		<!-- Main -->
+			<div id="main" class="wrapper style1">
+				<div class="container">
+					<section>
+						<header class="major">
+							
+							<h4>{{mensaje}}</h4>
+						</header>
+
+                    <form method="post">
+                        {{ form.as_p }}
+                        {% csrf_token %}
+                        <<!--<table>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Permiso de admin</th>
+                            </tr>
+                            <tr>
+                                <td>
+        	                        <select name="usuario">
+        		                    {%  for a in lista %}
+                                        <option value="{{ a }}">{{ a }}</option>
+                                    {% endfor %}
+        	                        </select>
+                                </td>
+                                <td><select name="permiso">
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+        	                        </select>
+                                </td>
+                            </tr>
+                        </table>-->
+                    <button type="submit" class="btn btn-primary btn-block btn-large">Registrar nuevo producto</button>
+                    </form>
+					</section>
+				</div>
+			</div>
+{% endblock %}	

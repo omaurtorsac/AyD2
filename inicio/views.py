@@ -1,11 +1,11 @@
 from django.shortcuts import render, render_to_response
 from .forms import login2
 from .forms import UserCreateForm
+from .forms import productos
 from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.contrib.auth import login as do_login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 
 import os
 import subprocess
@@ -30,6 +30,30 @@ def adminp(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('../');
+
+@login_required
+def producto(request):
+	#form = login2(request.POST)
+	form = productos()
+	variables={
+		"form":form,
+	}
+	if request.method == "POST":
+		form = productos(data=request.POST)
+		variables={
+			"form":form,
+		}
+		form = productos(data=request.POST)
+		if form.is_valid():
+			variables={
+				"form":form,
+			}
+		else:
+			variables = {
+				"form": form,
+			}
+	return render(request, "inicio/productos.html", variables)
+
 
 @login_required
 def registro(request):
@@ -114,29 +138,34 @@ def adminp(request):
     return render(request,'inicio/adminp.html',{'mensaje':mensaje});
 
 def login(request):
-	form = login2(request.POST)
-	mensaje = "Hola"
+	#form = login2(request.POST)
+	form = login2()
 	variables={
 		"form":form,
-		"mensaje":mensaje,
 	}
-	if form.is_valid():
-		datos = form.cleaned_data
-		user = datos.get("usuario")
-		psw = datos.get("password")
-		usuario = auth.authenticate(username = user, password = psw)
-		if usuario is not None:
-			do_login(request,usuario)
-			auth.login(request, usuario)
-			return HttpResponseRedirect('../adminp');
+	
+	if request.method == "POST":
+		form = login2(data=request.POST)
+		if form.is_valid():
+			datos = form.cleaned_data
+			user = datos.get("username")
+			psw = datos.get("password")
+			usuario = auth.authenticate(username = user, password = psw)
+			if usuario is not None:
+				do_login(request,usuario)
+				auth.login(request, usuario)
+				return HttpResponseRedirect('../adminp');
+			else:
+				form = login2()
+				variables = {
+					"form": form,
+				}
+				return render(request, "inicio/login.html", {"form": form})   #if user == row[0]:
+					#	print("encontro")
+					#else
+					#return render_to_response('inicio/login.html',{"form":form})
 		else:
-			mensaje = "Usuario o Password incorrecto"
 			variables = {
 				"form": form,
-				"mensaje": mensaje,
 			}
-			return render(request, "inicio/login.html", {"form": form, "mensaje": mensaje})   #if user == row[0]:
-				#	print("encontro")
-				#else
-				#return render_to_response('inicio/login.html',{"form":form})
 	return render(request, "inicio/login.html", variables)

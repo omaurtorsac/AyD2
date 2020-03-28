@@ -1,12 +1,22 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
+from .models import Producto
 import MySQLdb
 
+class productos(forms.ModelForm):
+	class Meta:
+		model = Producto
+		fields = ("nombre", "marca","cantidad")
 
-class login2(forms.Form):
-    usuario = forms.CharField(widget=forms.TextInput,required=True)
-    password = forms.CharField(widget=forms.PasswordInput(),required=True)
+class login2(AuthenticationForm):
+	#usuario = forms.CharField(widget=forms.TextInput,required=True)
+    #password = forms.CharField(widget=forms.PasswordInput(),required=True)
+	class Meta:
+		model = User
+		fields = ("username","password")
+    
 
 class UserCreateForm(UserCreationForm):
 	CUI = forms.IntegerField(required=True)

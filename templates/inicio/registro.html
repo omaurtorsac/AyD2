@@ -1,38 +1,23 @@
-<!DOCTYPE HTML>
-<!--
-	Horizons by TEMPLATED
-	templated.co @templatedco
-	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
--->
-<html>
-{% load staticfiles %}
-	<head>
-		<title>Registro Usuario</title>
-		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-		<meta name="description" content="" />
-		<meta name="keywords" content="" />
-		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<script src="{% static 'js/jquery.min.js' %}"></script>
-		<script src="{% static 'js/jquery.dropotron.min.js' %}"></script>
-		<script src="{% static 'js/skel.min.js' %}"></script>
-		<script src="{% static 'js/skel-layers.min.js' %}"></script>
-		<script src="{% static 'js/init.js' %}"></script>
-        <link rel="stylesheet" href="{% static 'css/skel.css' %}" type="text/css"/>
-    	<link rel="stylesheet" href="{% static 'css/style2.css' %}" type="text/css"/>
-		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
-	</head>
-	<body class="no-sidebar">
+{% extends 'inicio/base2.html' %}
+{% block content %}
 
 		<!-- Header -->
 			<div id="header">
 				<div class="container">
 						
 					<!-- Logo -->
-						<h1><a href="#" id="logo">Registro</a></h1>
+						<h1><a href="#" id="logo">Registro de Usuarios</a></h1>
 					
 					<nav id="nav">
 							<ul>
 								<li><a href="../adminp">Principal</a></li>
+								<li><a href="">Registrar</a>
+									<ul>
+										<li><a href="../registro">Cliente</a></li>
+										<li><a href="../producto">Producto</a></li>
+										<li><a href="../registro">Proveedor</a></li>
+									</ul>
+								</li>
 								<li>
 									<a href="">Sesión</a>
 									<ul>
@@ -62,8 +47,7 @@
 				<div class="container">
 					<section>
 						<header class="major">
-							<h2>Usuarios</h2>
-							<br/>
+							
 							<h4>{{mensaje}}</h4>
 						</header>
 
@@ -95,6 +79,4 @@
 					</section>
 				</div>
 			</div>
-
-	</body>
-</html>
+{% endblock %}	
