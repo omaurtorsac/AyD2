@@ -184,11 +184,17 @@ def registro(request):
 			username = datos.get('username')
 			puesto = datos.get('puesto')
 			contra = datos.get('password1')
-			cu = empleadoexiste(CUI)
+			cu = empleadoexiste(CUI,username)
 			if not cu:
+				registroe(CUI,nombre,apellido,puesto,username,contra)
 				form.save()
 				form = UserCreateForm()
-				mensaje = "Empelado registrado"
+				mensaje = "Empleado registrado"
+				variables = {
+					"form": form,
+					"mensaje":mensaje,
+				}
+				
 			#db = MySQLdb.connect(host=rds_host, user=user_name, password=password, db=db_name, connect_timeout=5)
 			#c = db.cursor()
 			#print("connected to db server")

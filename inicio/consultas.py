@@ -27,3 +27,6 @@ def nitexiste2(nit):
 def reporteno1():
 	r1 = Producto.objects.values_list('nombre','marca','cantidad')
 	return r1
+
+def registroe(CUI,nombre,apellido,puesto,username,contra):
+	Empleado.objects.create(cui=CUI,nombre=nombre,apellido = apellido, puesto = puesto, usuario = username, contrasenia = contra)

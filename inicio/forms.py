@@ -30,6 +30,11 @@ class login2(AuthenticationForm):
 		fields = ("username","password")
     
 
+class empleado(forms.ModelForm):
+	class Meta:
+		model = Empleado
+		fields = ("cui","nombre","apellido","puesto","usuario","contrasenia")
+
 class UserCreateForm(UserCreationForm):
 	CUI = forms.IntegerField(required=True)
 	first_name = forms.CharField(max_length=100, help_text='Nombre',required=True)
