@@ -20,17 +20,15 @@ port = 3306
 def index(request):
 	return render_to_response('inicio/index.html');
 
-@login_required
+
 def adminp(request):
 	mensaje="Bienvenido a la pagina del administrador!"
 	return render(request,'inicio/adminp.html',{'mensaje':mensaje});
 
-@login_required
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect('../');
 
-@login_required
 def proveedor(request):
 	#form = login2(request.POST)
 	form = proveedores()
@@ -71,7 +69,7 @@ def proveedor(request):
 		mensaje="Error en datos ingresados"
 	return render(request, "inicio/proveedores.html", variables)
 
-@login_required
+
 def reporte1(request):
 	mensaje1 = "Reporte de Productos"
 	camp = ['Nombre del producto','Marca','Cantidad en bodega']
@@ -84,7 +82,6 @@ def reporte1(request):
 	print(r1)
 	return render(request, "inicio/reporte1.html",variables)
 
-@login_required
 def cliente(request):
 	#form = login2(request.POST)
 	form = clientes()
@@ -125,7 +122,6 @@ def cliente(request):
 		mensaje="Error en datos ingresados"
 	return render(request, "inicio/clientes.html", variables)
 
-@login_required
 def producto(request):
 	#form = login2(request.POST)
 	form = productos()
@@ -167,7 +163,6 @@ def producto(request):
 	return render(request, "inicio/productos.html", variables)
 
 
-@login_required
 def registro(request):
 	# Creamos el formulario de autenticación vacío
 
@@ -189,46 +184,30 @@ def registro(request):
 			username = datos.get('username')
 			puesto = datos.get('puesto')
 			contra = datos.get('password1')
-			
-			
-			db = MySQLdb.connect(host=rds_host, user=user_name, password=password, db=db_name, connect_timeout=5)
-			c = db.cursor()
-			print("connected to db server")
-			consulta = "INSERT INTO Empleado VALUES("+str(CUI)+",'"+nombre+"','"+apellido+"','"+puesto+"','"+username+"','"+contra+"');"
-			consulta2 = "SELECT CUI, usuario from Empleado WHERE CUI = "+str(CUI)+" OR usuario = '"+username+"';"
-			print(consulta2)
-			c.execute(consulta2)
-			a = c.rowcount
-			if a > 0:
-				mensaje = "CUI o usuario ya registrado, por favor ingrese datos nuevos"
-				variables={
-					"form":form,
-					"mensaje":mensaje,
-				}
-				return render(request, "inicio/registro.html", variables)
-			user = form.save()
-			if user is not None:
-				c.execute(consulta)
-				db.commit()
-				c.close()
-				mensaje = "Usuario creado correctamente"
+			cu = empleadoexiste(CUI)
+			if not cu:
+				form.save()
 				form = UserCreateForm()
-				variables={
-					"form":form,
-					"mensaje":mensaje,
-				}
-				return render(request, "inicio/registro.html", variables)
+				mensaje = "Empelado registrado"
+			#db = MySQLdb.connect(host=rds_host, user=user_name, password=password, db=db_name, connect_timeout=5)
+			#c = db.cursor()
+			#print("connected to db server")
+			#consulta = "INSERT INTO Empleado VALUES("+str(CUI)+",'"+nombre+"','"+apellido+"','"+puesto+"','"+username+"','"+contra+"');"
+			#consulta2 = "SELECT CUI, usuario from Empleado WHERE CUI = "+str(CUI)+" OR usuario = '"+username+"';"
+			#print(consulta2)
+			#c.execute(consulta2)
+			#a = c.rowcount
 			else:
-				mensaje = "Usuario ya existente"
-				variables={
+				form = UserCreateForm()
+				mensaje = "CUI o Username ya creado en base de datos"
+				variables = {
 					"form":form,
 					"mensaje":mensaje,
 				}
-				return render(request, "inicio/registro.html", variables)
 		else:
-			mensaje = "Usuario ya existente (ingrese otro username)"
-			variables={
-				"form":form,
+			mensaje = "Error al grabar"
+			variables = {
+				"form": form,
 				"mensaje":mensaje,
 			}
             # Creamos la nueva cuenta de usuario
@@ -244,7 +223,7 @@ def registro(request):
     # Si llegamos al final renderizamos el formulario
 	return render(request, "inicio/registro.html", variables)
 
-@login_required
+
 def adminp(request):
     mensaje="Bienvenido a la pagina del administrador!"
     return render(request,'inicio/adminp.html',{'mensaje':mensaje});

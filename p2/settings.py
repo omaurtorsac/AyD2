@@ -27,7 +27,7 @@ SECRET_KEY = 'n$r2*=k(6q$+zrduz@*$om4748#52r$=i$mg%0spx_euv#0ju%'
 DEBUG = True
 RUTA_PROYECTO = Path(__file__).ancestor(2)
 
-ALLOWED_HOSTS = ['f3wyd2crvl.execute-api.us-east-1.amazonaws.com','127.0.0.1',]
+ALLOWED_HOSTS = ['138.68.252.228','127.0.0.1',]
 
 
 # Application definition
@@ -58,7 +58,7 @@ ROOT_URLCONF = 'p2.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [RUTA_PROYECTO.child('templates')],
+        'DIRS': [RUTA_PROYECTO.child('static','templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

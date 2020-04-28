@@ -12,6 +12,9 @@ def productoexiste(nombre, marca):
 	p = Producto.objects.filter(nombre = nombre).filter(marca = marca)
 	return p
 
+def empleadoexiste(cui,usuario):
+	e = Empleado.objects.filter(Q(cui=cui)|Q(usuario=usuario))
+	return e
 
 def nitexiste(nit):
 	n = Cliente.objects.filter(nit = nit)
